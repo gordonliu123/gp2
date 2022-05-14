@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="icon" href="https://v4.bootcss.com/docs/4.6/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+		<link rel="icon" href="https://v4.bootcss.com/docs/4.6/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+		<title>Awesome</title>
+        <style>
+            table {font-size: 14px;}
+        </style>
+		<style>
+			body{
+				background-color: #404040;
+				margin: 0 auto;
+				width: 100%;
+			}
+			@media (min-width: 600px) {
+				body{
+					margin: 0 auto;
+					width: 600px;
+				}
+			}
+			table {
+				margin-top: 50px;
+				min-width: 600px;
+			}
+			th {
+				/* background-color: #585858; */
+				background-color: #303030;
+				color: #cecece;
+				font-size: 13px;
+				padding: 6px 10px 10px 12px;
+				border-bottom: 1px solid #C1DAD7;
+			}
+			td {
+				background-color: #505050;
+				color: #ddd;
+				font-size: 13px;
+				text-align: left;
+				padding: 6px 10px 10px 12px;
+				border-bottom: 1px solid #C1DAD7;
+			}
+
+
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			.btn button {
+				background-color: #7952b3;
+				border: 0 solid;
+				border-radius: 10%;
+				margin: 20px 0 0 10px;
+				height: 25px;
+				width: 50px;
+				color: #C1DAD7;
+			}
+			.btn-cancel button {
+				background-color: #6c757d;
+				border: 0 solid;
+				border-radius: 10%;
+				margin: 20px 0 0 10px;
+				height: 25px;
+				width: 50px;
+				color: #C1DAD7;
+			}
+
+			#myModal {
+				display: none;
+				position: relative;
+				width: 400px;
+				height: auto;
+				margin: auto;
+				z-index: 200;
+				background-color: #303030;
+				padding-bottom: 20px;
+				
+			}
+
+			.modal-footer {
+				margin-top: 0px;
+				text-align: center;
+			}
+			.modal-title {
+				color: white;
+				padding: 10px;
+				font-size: 14px;
+			}
+
+			input {
+				width: 90%;
+				height: 25px;
+				margin-top: 10px;
+				margin-left: 20px;
+				background-color: #505050;
+				border: #303030;
+				border-radius: 5px;
+				padding-left: 10px;
+				color: #fff;
+			}
+		</style>
+	</head>
+	<body class="body">
+        <table border="0" cellspacing="0" cellpadding="0">
+            <thead>
+                <tr>
+                    <th>代码</th>
+                    <th>股票</th>
+                    <th>数量</th>
+                    <th>成本</th>
+                    <th>现价</th>
+                    <th>盈亏</th>
+                    <th>盈亏%</th>
+                    <th>回本%</th>
+					<th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                <tr>
+                    <!-- <td>SH600096</td>
+                    <td>云天化</th>
+                    <td>1600</td>
+                    <td>26.01</td>
+                    <td>25.52</td>
+                    <td>1134</td>
+                    <td>2.55%</td>
+                    <td>2.88%</td>
+					<td>删除</td> -->
+                </tr>
+            </tbody>
+        </table>
+		<!-- 模态框触发按钮 -->
+		<div class="btn">
+			<button id="open">新增</button>
+		</div>
+		<!-- 模态框内容 -->
+		<div id="myModal">
+			<div class="modal-dialog" id="model" tabindex="-1">
+				<h3 class="modal-title">新增股票</h3>
+				<hr />
+				<div style="margin-top: 10px;">
+					<div><input id="code" placeholder="股票代码"/></div>
+					<div><input id="count" placeholder="数量"/></div>
+					<div><input id="cost" placeholder="成本"/></div>
+					<div><input id="name" placeholder="名称"/ hidden></div>
+					<div><input id="price" placeholder="现价"/ hidden></div>
+				</div>
+				<div class="modal-footer">
+					<span class="btn-cancel"><button id="close">取消</button></span>
+					<span class="btn"><button id="add">确认</button></span>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		document.getElementById("model").onblur = function() {
+			document.getElementById("myModal").style.display = "none"
+		}
+		document.getElementById("model").onfocus = function() {
+			document.getElementById("myModal").style.display = "block"
+		}
+		document.getElementById("open").onclick = function() {
+			document.getElementById("myModal").style.display = "block"
+		}
+		document.getElementById("close").onclick = function() {
+			document.getElementById("myModal").style.display = "none"
+		}
+        document.getElementById("add").onclick = function() {
+            code = document.getElementById("code").value
+            count = document.getElementById("count").value
+            cost = document.getElementById("cost").value
+			if (code==''||count==''||cost==''){
+				alert('代码、数量、成本不能为空！');
+			} else{
+				GetGP(code)
+				name = document.getElementById("name").value
+				price = document.getElementById("price").value
+				income = ((price-cost)*count).toFixed(0)
+				income_pct = (((price-cost)/cost*100).toFixed(2)).toString()+"%"
+				backcost_pct = (((price-cost)/price*100).toFixed(2)).toString()+"%"
+				data = {
+					"code": code, "count": count, "cost": cost, "price": price,
+					"name": name, "price": price, "income": income,
+					"income_pct": income_pct, "backcost_pct": backcost_pct
+				}
+
+				ls = localStorage.getItem('ls') // 判断缓存中是否存在数据
+				if (ls==null||ls==""){
+					localStorage.setItem('ls', JSON.stringify(data));
+					document.getElementById("myModal").style.display = "none";
+					document.getElementById("code").value = "";
+            		document.getElementById("count").value = "";
+            		document.getElementById("cost").value = "";
+
+				} else{
+					localStorage.setItem('ls', localStorage.getItem('ls')+','+JSON.stringify(data));
+					document.getElementById("myModal").style.display = "none";
+					document.getElementById("code").value = "";
+            		document.getElementById("count").value = "";
+            		document.getElementById("cost").value = "";
+				}
+				WriteTable();
+			}
+        }
+
+		// 通过接口获取股票名称和价格
+		function GetGP(code) {
+			var xmlhttp;
+			if (window.XMLHttpRequest){
+				xmlhttp = new XMLHttpRequest();
+			} else{
+				// IE6，IE5 浏览器执行代码
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp.onreadystatechange = function(){
+				if (xmlhttp.readyState==4 && xmlhttp.status==200){
+					var text =  xmlhttp.responseText;
+					var data = text.split('~');
+					document.getElementById("name").value = data[1];
+					document.getElementById("price").value = data[3]; 
+				}
+			}
+			xmlhttp.open("GET", "https://qt.gtimg.cn/q="+code, false);
+			xmlhttp.send();
+		}
+
+		// 把数据写入表格中
+		function WriteTable(){
+			ls = JSON.parse('['+localStorage.getItem('ls')+']') // 字符串解析为对象
+			var html = ""
+			for (var i=0;i<ls.length;i++){
+				// console.log(ls[i])
+				data = ls[i]
+				html += "<tr>" + 
+							"<td>"+data['code']+"</td>"+
+							"<td>"+data['name']+"</th>"+
+							"<td>"+data['count']+"</td>"+
+							"<td>"+data['cost']+"</td>"+
+							"<td>"+data['price']+"</td>"+
+							"<td>"+data['income']+"</td>"+
+							"<td>"+data['income_pct']+"</td>"+
+							"<td>"+data['backcost_pct']+"</td>"+
+							"<td><span onclick=DelGP('"+data['code']+"')>删除</span<td>"+
+						"</tr>";
+			}
+			document.getElementById("tbody").innerHTML = html;
+		}
+
+		// 删除缓存中指定股票
+		function DelGP(code){
+			ls = JSON.parse('['+localStorage.getItem('ls')+']') // 字符串解析为对象
+			var str = ""
+			for (var i=0;i<ls.length;i++){
+				if (ls[i]['code']!=code){
+					if(str==""){
+						str = JSON.stringify(ls[i]);
+					} else {
+						str = str+','+JSON.stringify(ls[i]);
+					}
+				}
+			}
+			localStorage.setItem('ls', str);
+			WriteTable();
+		}
+
+		// 页面加载时运行
+		window.onload = function(){
+			ls = localStorage.getItem('ls') // 判断缓存中是否存在数据
+			console.log(ls)
+			if (ls!=null&&ls!=""){
+				WriteTable();
+			}
+		};
+
+	</script>
+</html>
