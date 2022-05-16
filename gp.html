@@ -320,6 +320,11 @@
 				GetGP(ls[i]['code']);
 				price = document.getElementById("price").value
 				ls[i]['price'] = price
+				cost = ls[i]['cost']
+				count = ls[i]['count']
+				ls[i]['income'] = ((price-cost)*count).toFixed(0)
+				ls[i]['income_pct'] = ((price-cost)/cost*100).toFixed(2)
+				ls[i]['backcost_pct'] = ((price-cost)/price*100).toFixed(2)
 				if(str==""){
 					str = JSON.stringify(ls[i]);
 				} else {
