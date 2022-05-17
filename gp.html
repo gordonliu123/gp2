@@ -206,7 +206,7 @@
 				display: none; /* Hidden by default */
 				position: fixed; /* Stay in place */
 				z-index: 1; /* Sit on top */
-				padding-top: 250px; /* Location of the box */
+				padding-top: 200px; /* Location of the box */
 				/* left: 0; */
 				top: 0;
 				width: 100%; /* Full width */
@@ -389,10 +389,9 @@
 			document.getElementById("myModal").style.display = "none"
 		}
         document.getElementById("add").onclick = function() {
-            code = document.getElementById("code").value.replace(' ','').match(/\d+(\.\d+)?./g)[0]
-            count = document.getElementById("count").value.replace(' ','').match(/\d+(\.\d+)?./g)[0]
-            cost = document.getElementById("cost").value.replace(' ','').match(/\d+(\.\d+)?./g)[0]
-			console.log(cost)
+			code = document.getElementById("code").value.replace(' ','').match(/-?([1-9]\d*(\.\d*)*|0\.[1-9]\d*)/g)[0]
+			count = document.getElementById("count").value.replace(' ','').match(/-?([1-9]\d*(\.\d*)*|0\.[1-9]\d*)/g)[0]
+			cost = document.getElementById("cost").value.replace(' ','').match(/-?([1-9]\d*(\.\d*)*|0\.[1-9]\d*)/g)[0]
 			
 			code_q3 = code.substring(0, 3)
 			if (code_q3=='600'||code_q3=='601'||code_q3=='603'||code_q3=='605'||code_q3=='688'){
