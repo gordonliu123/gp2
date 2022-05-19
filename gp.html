@@ -621,6 +621,7 @@
 	var el = document.getElementById('tbody');
 	var st = new Sortable(el, {
 		animation: 150,
+		delay: 300,
 		onEnd: function(evt){
 			ls = JSON.parse('['+localStorage.getItem('ls')+']')
 			// 为拖拽后位置改变的元素附上新的sort值
