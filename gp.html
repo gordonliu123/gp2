@@ -435,10 +435,10 @@
 				ls = JSON.parse('['+localStorage.getItem('ls')+']')
 				// console.log(ls.length)
 				// console.log(ls)
-				if (ls==[null]){
-					sort = 0
-				} else{
+				if (ls.length>0&&ls[0]!=null){
 					sort = ls[ls.length-1]['sort'] + 1
+				} else{
+					sort = 0
 				}
 				data = {
 					"id": id, "code": code, "count": count, "cost": cost, 
