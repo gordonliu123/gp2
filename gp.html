@@ -433,9 +433,9 @@
 				income_pct = ((price-cost)/cost*100).toFixed(2)
 				backcost_pct = ((price-cost)/price*100).toFixed(2)
 				ls = JSON.parse('['+localStorage.getItem('ls')+']')
-				console.log(ls.length)
-				console.log(ls)
-				if (ls.length==0){
+				// console.log(ls.length)
+				// console.log(ls)
+				if (ls==[null]){
 					sort = 0
 				} else{
 					sort = ls[ls.length-1]['sort'] + 1
