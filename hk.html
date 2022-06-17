@@ -442,6 +442,7 @@
 		}
 		document.getElementById("close").onclick = function() {
 			$("#myModal").hide();
+			location.reload();
 		}
         document.getElementById("add").onclick = function() {
 			name1 = document.getElementById("name").value
@@ -522,7 +523,7 @@
 			document.getElementById("title2").innerText = l[0][0].substring(0, 7).toString() + " 明细";
 			document.getElementById("tbody2").innerHTML = html;
 			document.getElementById("model2").style.height = ((l.length+1)*40+100).toString()+"px";
-			document.getElementById("myModal2").style.display = "block"
+			$("#myModal2").show()
 		}
 		
 		// 把数据写入表格中
