@@ -441,8 +441,7 @@
 			document.getElementById("myModal").style.display = "block"
 		}
 		document.getElementById("close").onclick = function() {
-			document.getElementById("myModal").style.display = "block"
-			document.getElementById("myModal").style.display = "none"
+			$("#myModal").hide()
 		}
         document.getElementById("add").onclick = function() {
 			name1 = document.getElementById("name").value
@@ -489,8 +488,7 @@
 						localStorage.setItem('hkdata', localStorage.getItem('hkdata')+','+JSON.stringify(data));
 					}
 				}
-				document.getElementById("myModal").style.display = "block"
-				document.getElementById("myModal").style.display = "none";
+				$("#myModal").hide()
 				document.getElementById("name").value = "";
 				document.getElementById("amount").value = "";
 				document.getElementById("count").value = "";
@@ -499,15 +497,13 @@
 			}
         }
 		document.getElementById("model2").onblur = function() {
-			document.getElementById("myModal2").style.display = "block"
-			document.getElementById("myModal2").style.display = "none"
+			$("#myModal2").hide()
 		}
 		document.getElementById("model2").onfocus = function() {
 			document.getElementById("myModal2").style.display = "block"
 		}
 		document.getElementById("close2").onclick = function() {
-			document.getElementById("myModal2").style.display = "block"
-			document.getElementById("myModal2").style.display = "none"
+			$("#myModal2").hide()
 		}
 		function ShowList(num){
 			l = lists[num];
