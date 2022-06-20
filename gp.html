@@ -456,17 +456,11 @@
 		</div>
 	</body>
 	<script>
-		document.getElementById("model").onblur = function() {
-			document.getElementById("myModal").style.display = "none"
-		}
-		document.getElementById("model").onfocus = function() {
-			document.getElementById("myModal").style.display = "block"
-		}
 		document.getElementById("open").onclick = function() {
-			document.getElementById("myModal").style.display = "block"
+			$("#myModal").show();
 		}
 		document.getElementById("close").onclick = function() {
-			document.getElementById("myModal").style.display = "none"
+			$("#myModal").hide();
 		}
         document.getElementById("add").onclick = function() {
 			code = document.getElementById("code").value.replace(' ','').match(/-?([0-9]\d*(\.\d*)*|0\.[0-9]\d*)/g)[0]
@@ -477,7 +471,7 @@
 			if (code_q3=='600'||code_q3=='601'||code_q3=='603'||code_q3=='605'||code_q3=='688'){
 				code = 'sh'+code;
 			}
-			if (code_q3=='001'||code_q3=='002'||code_q3=='003'||code_q3=='300'||code_q3=='301'){
+			if (code_q3=='000'||code_q3=='001'||code_q3=='002'||code_q3=='003'||code_q3=='300'||code_q3=='301'){
 				code = 'sz'+code;
 			} 
 			if (code==''||count==''||cost==''){
@@ -515,10 +509,10 @@
 
 				} else{
 					localStorage.setItem('ls', localStorage.getItem('ls')+','+JSON.stringify(data));
-					document.getElementById("myModal").style.display = "none";
+					$("#myModal").hide();
 					document.getElementById("code").value = "";
-            		document.getElementById("count").value = "";
-            		document.getElementById("cost").value = "";
+					document.getElementById("count").value = "";
+					document.getElementById("cost").value = "";
 				}
 				WriteTable();
 			}
