@@ -468,10 +468,10 @@
 			cost = document.getElementById("cost").value.replace(' ','').match(/-?([1-9]\d*(\.\d*)*|0\.[1-9]\d*)/g)[0]
 			
 			code_q3 = code.substring(0, 3)
-			if (code_q3=='000'||code_q3=='600'||code_q3=='601'||code_q3=='603'||code_q3=='605'||code_q3=='688'){
+			if (code_q3=='600'||code_q3=='601'||code_q3=='603'||code_q3=='605'||code_q3=='688'){
 				code = 'sh'+code;
 			}
-			if (code_q3=='001'||code_q3=='002'||code_q3=='003'||code_q3=='300'||code_q3=='301'){
+			if (code_q3=='000'||code_q3=='001'||code_q3=='002'||code_q3=='003'||code_q3=='300'||code_q3=='301'){
 				code = 'sz'+code;
 			} 
 			if (code==''||count==''||cost==''){
