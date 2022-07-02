@@ -444,7 +444,7 @@
 
 		<!-- 模态框内容 -->
 		<div id="myModal" class="myModal">
-			<div class="modal-dialog" id="model" tabindex="-1">
+			<div class="modal-dialog" id="modal" tabindex="-1">
 				<h3 class="modal-title">新增</h3>
 				<!-- <hr /> -->
 				<div>
@@ -460,7 +460,7 @@
 			</div>
 		</div>
 		<div id="myModal2" class="myModal2">
-			<div class="modal-dialog" id="model2" tabindex="-1">
+			<div class="modal-dialog" id="modal2" tabindex="-1">
 				<h3 class="modal-title" id="title2">明细</h3>
 				<!-- <hr /> -->
 				<div>
@@ -558,7 +558,10 @@
 			}
 			document.getElementById("title2").innerText = l[0]['date'].substring(0, 7).toString() + " 明细";
 			document.getElementById("tbody2").innerHTML = html;
-			document.getElementById("model2").style.height = ((l.length+1)*40+100).toString()+"px";
+			document.getElementById("modal2").style.height = ((l.length+1)*40+100).toString()+"px";
+			clientWidth = (document.body.clientHeight - ((l.length+1)*40+120)) / 2 -10
+			console.log(clientWidth)
+			document.getElementById("myModal2").style.paddingTop = clientWidth.toString()+"px";
 			$("#myModal2").show()
 		}
 		
