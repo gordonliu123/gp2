@@ -559,7 +559,7 @@
 			document.getElementById("title2").innerText = l[0]['date'].substring(0, 7).toString() + " 明细";
 			document.getElementById("tbody2").innerHTML = html;
 			document.getElementById("modal2").style.height = ((l.length+1)*40+100).toString()+"px";
-			clientWidth = (document.body.clientHeight - ((l.length+1)*40+120)) / 2 -10
+			clientWidth = (document.body.clientHeight - ((l.length+1)*40+120)) / 2 - 50
 			console.log(clientWidth)
 			document.getElementById("myModal2").style.paddingTop = clientWidth.toString()+"px";
 			$("#myModal2").show()
