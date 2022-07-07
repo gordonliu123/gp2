@@ -619,7 +619,7 @@
 					}
 				}
 				yms[i] = y+'-'+m;
-				ms[i] = m;
+				ms[i] = y+'.'+m;
 				counts[i] = count;
 				amounts[i] = amount
 				lists[i] = list;
@@ -680,7 +680,7 @@
 							font: {size: 11},
 							formatter: function(value, context) {
 								// return (value/1000).toFixed(1);
-								return value;
+								return format(value.toString());
 							}
 						}
 					},
