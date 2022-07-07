@@ -659,8 +659,10 @@
 					labels: ms,
 					datasets: [{
 						label: '金额',
-						backgroundColor: "#7b5dce",
-						hoverBackgroundColor: "#5f45a8",
+						backgroundColor: ["#5f45a8","#7b5dce","#7b5dce","#7b5dce","#7b5dce","#7b5dce",
+										  "#7b5dce","#7b5dce","#7b5dce","#7b5dce","#7b5dce","#7b5dce"],
+						hoverBackgroundColor: "#7b5dce",
+						// hoverBackgroundColor: "#5f45a8",
 						data: amounts,
 						borderRadius: 5,
 						datalabels: {
@@ -682,9 +684,11 @@
 								// return (value/1000).toFixed(1);
 								return format(value.toString());
 							}
-						}
+						},
+						tooltip: {
+							enabled: false, //选中不显示提示框
+						},
 					},
-					
 					// Core options
 					// aspectRatio: 5 / 3,
 					layout: {
