@@ -33,6 +33,19 @@
 					min-height: 800px;
 				}
 			}
+			@media (min-width: 600px) {
+				::-webkit-scrollbar{	
+					height: 8px;
+				} /*这是针对缺省样式&nbsp;(必须的)*/
+				::-webkit-scrollbar-thumb{
+					background-color:#3e3e3e;
+					border-radius: 5px;
+				}/*滑块颜色*/
+				::-webkit-scrollbar-track-piece{
+					background-color:#000000;
+					border-radius: 5px;
+				}
+			}
 			/* 首先样式重置 */
 			ul{
 				list-style: none;
@@ -49,8 +62,6 @@
 			.table .tr>li{
 				float: left;
 				text-align: center;
-				border-left: 0.5px solid #3e3e3e;
-				border-top: 0.5px solid #3e3e3e;
 			}
 			/* 清除浮动带来的影响 */
 			.clearfix::after{
@@ -60,7 +71,7 @@
 			}
 			/* 行--设置行高 */
 			.table .thead .tr{
-				background-color: #1c1c1c;
+				/* background-color: #1c1c1c; */
 				color: #98989a;
 				font-size: 14px;
 				height: 90px;
@@ -68,7 +79,7 @@
 				padding-top: 0px;
 			}
 			.table .tbody .tr{
-				background-color: #1c1c1c;
+				/* background-color: #1c1c1c; */
 				color: #ffffff;
 				font-size: 14px;
 				min-height: 80px;
@@ -419,23 +430,20 @@
 		<div class="">
 			
 		</div>
-			
-        <ul class="table">
-            <li class="thead">
-                <!-- <ul class="tr clearfix">
-					<li>月份</li>
-					<li>笔数</div></li>
-                    <li>总金额</div></li>
-				</ul> -->
-				<ul class="tbody" id="tbody" style="list-style-type: none;">
-					
-				</ul>
-            </li>
-        </ul>
+		
+		<div style="margin: 10px;border: 0.5px solid #3e3e3e;border-radius: 10px;background-color: #1c1c1c;">
+			<ul class="table">
+				<li class="thead">
+					<ul class="tbody" id="tbody" style="list-style-type: none;">
+						
+					</ul>
+				</li>
+			</ul>
+		</div>
 
 		<div style="width: 100%;overflow-x: scroll;">
-			<div style="padding-top: 20px;padding-bottom: 10px;margin-left: 5px;margin-right: 5px; height: 240px;width: 680px;">
-				<canvas id="mybarChart" height="240" width="680"></canvas>
+			<div style="padding-bottom: 10px;margin-left: 5px;margin-right: 5px; height: 200px;width: 680px;">
+				<canvas id="mybarChart" height="200" width="680"></canvas>
 			</div>
 		</div>
 
@@ -627,26 +635,26 @@
 			var html = ""
 			html += '<li>' +
 					'<ul class="tr clearfix">' +
-					'	<li onclick=ShowList(0)><div class="v-align"><span>'+yms[0]+'</br><a class="number">'+format(amounts[0].toString())+'</a></a></br><a class="code">'+counts[0]+'笔</a></span></div></li>' +
-					'	<li onclick=ShowList(1)><div class="v-align"><span>'+yms[1]+'</br><a class="number">'+format(amounts[1].toString())+'</a></br><a class="code">'+counts[1]+'笔</a></span></div></li>' +
-					'	<li onclick=ShowList(2)><div class="v-align"><span>'+yms[2]+'</br><a class="number">'+format(amounts[2].toString())+'</a></br><a class="code">'+counts[2]+'笔</a></span></div></li>' +
-					'	<li onclick=ShowList(3) style="border-right: 0.5px solid #3e3e3e;"><div class="v-align"><span>'+yms[3]+'</br><a class="number">'+format(amounts[3].toString())+'</a></br><a class="code">'+counts[3]+'笔</a></span></div></li>' +
+					'	<li onclick=ShowList(0) style="border-right: 0.5px solid #3e3e3e;border-bottom: 0.5px solid #3e3e3e;"><div class="v-align"><span>'+yms[0]+'</br><a class="number">'+format(amounts[0].toString())+'</a></a></br><a class="code">'+counts[0]+'笔</a></span></div></li>' +
+					'	<li onclick=ShowList(1) style="border-right: 0.5px solid #3e3e3e;border-bottom: 0.5px solid #3e3e3e;"><div class="v-align"><span>'+yms[1]+'</br><a class="number">'+format(amounts[1].toString())+'</a></br><a class="code">'+counts[1]+'笔</a></span></div></li>' +
+					'	<li onclick=ShowList(2) style="border-right: 0.5px solid #3e3e3e;border-bottom: 0.5px solid #3e3e3e;"><div class="v-align"><span>'+yms[2]+'</br><a class="number">'+format(amounts[2].toString())+'</a></br><a class="code">'+counts[2]+'笔</a></span></div></li>' +
+					'	<li onclick=ShowList(3) style="border-bottom: 0.5px solid #3e3e3e;"><div class="v-align"><span>'+yms[3]+'</br><a class="number">'+format(amounts[3].toString())+'</a></br><a class="code">'+counts[3]+'笔</a></span></div></li>' +
 					'</ul>' + 
 					'</li>' + 
 					'<li>' +
 					'<ul class="tr clearfix">' +
-					'	<li onclick=ShowList(4)><div class="v-align"><span>'+yms[4]+'</br><a class="number">'+format(amounts[4].toString())+'</a></br><a class="code">'+counts[4]+'笔</a></span></div></li>' +
-					'	<li onclick=ShowList(5)><div class="v-align"><span>'+yms[5]+'</br><a class="number">'+format(amounts[5].toString())+'</a></br><a class="code">'+counts[5]+'笔</a></span></div></li>' +
-					'	<li onclick=ShowList(6)><div class="v-align"><span>'+yms[6]+'</br><a class="number">'+format(amounts[6].toString())+'</a></br><a class="code">'+counts[6]+'笔</a></span></div></li>' +
-					'	<li onclick=ShowList(7) style="border-right: 0.5px solid #3e3e3e;"><div class="v-align"><span>'+yms[7]+'</br><a class="number">'+format(amounts[7].toString())+'</a></br><a class="code">'+counts[7]+'笔</a></span></div></li>' +
+					'	<li onclick=ShowList(4) style="border-right: 0.5px solid #3e3e3e;border-bottom: 0.5px solid #3e3e3e;><div class="v-align"><span>'+yms[4]+'</br><a class="number">'+format(amounts[4].toString())+'</a></br><a class="code">'+counts[4]+'笔</a></span></div></li>' +
+					'	<li onclick=ShowList(5) style="border-right: 0.5px solid #3e3e3e;border-bottom: 0.5px solid #3e3e3e;><div class="v-align"><span>'+yms[5]+'</br><a class="number">'+format(amounts[5].toString())+'</a></br><a class="code">'+counts[5]+'笔</a></span></div></li>' +
+					'	<li onclick=ShowList(6) style="border-right: 0.5px solid #3e3e3e;border-bottom: 0.5px solid #3e3e3e;><div class="v-align"><span>'+yms[6]+'</br><a class="number">'+format(amounts[6].toString())+'</a></br><a class="code">'+counts[6]+'笔</a></span></div></li>' +
+					'	<li onclick=ShowList(7) style="border-bottom: 0.5px solid #3e3e3e;"><div class="v-align"><span>'+yms[7]+'</br><a class="number">'+format(amounts[7].toString())+'</a></br><a class="code">'+counts[7]+'笔</a></span></div></li>' +
 					'</ul>' + 
 					'</li>' + 
 					'<li>' +
 					'<ul class="tr clearfix">' +
-					'	<li onclick=ShowList(8) style="border-bottom: 0.5px solid #3e3e3e;"><div class="v-align"><span>'+yms[8]+'</br><a class="number">'+format(amounts[8].toString())+'</a></br><a class="code">'+counts[8]+'笔</a></span></div></li>' +
-					'	<li onclick=ShowList(9) style="border-bottom: 0.5px solid #3e3e3e;"><div class="v-align"><span>'+yms[9]+'</br><a class="number">'+format(amounts[9].toString())+'</a></br><a class="code">'+counts[9]+'笔</a></span></div></li>' +
-					'	<li onclick=ShowList(10) style="border-bottom: 0.5px solid #3e3e3e;"><div class="v-align"><span>'+yms[10]+'</br><a class="number">'+format(amounts[10].toString())+'</a></br><a class="code">'+counts[10]+'笔</a></span></div></li>' +
-					'	<li onclick=ShowList(11) style="border-right: 0.5px solid #3e3e3e;border-bottom: 0.5px solid #3e3e3e;"><div class="v-align"><span>'+yms[11]+'</br><a class="number">'+format(amounts[11].toString())+'</a></br><a class="code">'+counts[11]+'笔</a></span></div></li>' +
+					'	<li onclick=ShowList(8) style="border-right: 0.5px solid #3e3e3e;"><div class="v-align"><span>'+yms[8]+'</br><a class="number">'+format(amounts[8].toString())+'</a></br><a class="code">'+counts[8]+'笔</a></span></div></li>' +
+					'	<li onclick=ShowList(9) style="border-right: 0.5px solid #3e3e3e;"><div class="v-align"><span>'+yms[9]+'</br><a class="number">'+format(amounts[9].toString())+'</a></br><a class="code">'+counts[9]+'笔</a></span></div></li>' +
+					'	<li onclick=ShowList(10) style="border-right: 0.5px solid #3e3e3e;"><div class="v-align"><span>'+yms[10]+'</br><a class="number">'+format(amounts[10].toString())+'</a></br><a class="code">'+counts[10]+'笔</a></span></div></li>' +
+					'	<li onclick=ShowList(11)><div class="v-align"><span>'+yms[11]+'</br><a class="number">'+format(amounts[11].toString())+'</a></br><a class="code">'+counts[11]+'笔</a></span></div></li>' +
 					'</ul>' + 
 					'</li>'
 			document.getElementById("tbody").innerHTML = html;
@@ -659,10 +667,8 @@
 					labels: ms,
 					datasets: [{
 						label: '金额',
-						backgroundColor: ["#5f45a8","#7b5dce","#7b5dce","#7b5dce","#7b5dce","#7b5dce",
-										  "#7b5dce","#7b5dce","#7b5dce","#7b5dce","#7b5dce","#7b5dce"],
-						hoverBackgroundColor: ["#5f45a8","#7b5dce","#7b5dce","#7b5dce","#7b5dce","#7b5dce",
-										  	   "#7b5dce","#7b5dce","#7b5dce","#7b5dce","#7b5dce","#7b5dce"],
+						backgroundColor: "#7b5dce",
+						hoverBackgroundColor: "#7b5dce",
 						// hoverBackgroundColor: "#5f45a8",
 						data: amounts,
 						borderRadius: 5,
