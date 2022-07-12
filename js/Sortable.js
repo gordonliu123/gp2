@@ -1695,6 +1695,9 @@
         if (ghostEl) {
           if (ghostMatrix) {
             ghostMatrix.e += dx - (lastDx || 0);
+            if (ghostMatrix.e!=0) { // 移动端拖拽时不允许x轴上移动
+              ghostMatrix.e=0
+            } 
             ghostMatrix.f += dy - (lastDy || 0);
           } else {
             ghostMatrix = {
