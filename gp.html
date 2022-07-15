@@ -301,6 +301,9 @@
 			.li-hide {
 				display: none;
 			}
+			.li-show {
+				display: block;
+			}
 		</style>
 	</head>
 	<body class="body">
@@ -695,11 +698,14 @@
 				document.getElementById("menu-box").style.display = "block"
 			}
 		}
+		
 		// 编辑
 		$("#btn-edit").click(function(){
 			if ($(".li-edit").hasClass("li-hide")){
 				$(".li-edit").removeClass("li-hide")
+				$(".li-edit").addClass("li-show")
 			} else{
+				$(".li-edit").removeClass("li-show")
 				$(".li-edit").addClass("li-hide")
 			}
 		});
