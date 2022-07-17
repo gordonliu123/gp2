@@ -142,6 +142,12 @@
 			.table .tbody li:nth-child(5){
 				flex: 1;
 			}
+			.table .thead li:nth-child(6){
+				flex: 1;
+			}
+			.table .tbody li:nth-child(6){
+				flex: 1;
+			}
 			.table .thead li:last-child{
 				flex: 1;
 			}
@@ -298,11 +304,19 @@
 			a .text{
 				color: #fff;
 			}
-			.li-hide {
-				display: none;
+			.my-ul {
+				position: relative;
+				width: 120%;
+				list-style-type: none; 
+				overflow: hidden;
+				-webkit-transition:all 0.2s linear;transition:all 0.2s linear;
 			}
-			.li-show {
-				display: block;
+			.moveleft{
+				transform:translateX(-15%);
+				-webkit-transform:translateX(-15%);
+			}
+			.hide {
+				display: none;
 			}
 		</style>
 	</head>
@@ -366,11 +380,12 @@
 					</li>
                     <li><div class="v-align"><span>数量<br/>市值</span></div></li>
                     <li><div class="v-align"><span>成本<br/>现价</span></div></li>
-                    <li><div class="v-align"><span>盈亏<br/>%</span></div></li>
-                    <li>距本</li>
-					<li class="li-edit li-hide">操作</li>
+                    <li class="li-normal"><div class="v-align"><span>盈亏<br/>%</span></div></li>
+                    <li class="li-normal">距本</li>
+					<li class="li-edit hide">删除</li>
+					<li class="li-edit hide">移动</li>
 				</ul>
-				<ul class="tbody" id="tbody" style="list-style-type: none;">
+				<ul class="tbody" id="tbody" style="list-style-type: none;overflow: hidden;">
 					<!-- <ul class="tr clearfix" onclick=ShowZD("r1")>
 						<li>云天化</li>
 						<li>1600</li>
@@ -548,21 +563,25 @@
 					class2 = "down";
 				}
 				html += '<li>' +
-						'<ul class="tr clearfix">' +
-						'	<li onclick=ShowZD("l'+i.toString()+'","r'+i.toString()+'")><div class="v-align"><span>'+data['name']+'</br><a class="code">'+data['code']+'</a></span></div></li>' +
-						'	<li onclick=ShowZD("l'+i.toString()+'","r'+i.toString()+'")><div class="v-align"><span>'+data['count']+'</br>'+format((data['count']*data['price']).toFixed(0))+'</span></div></li>'+
-						'	<li onclick=ShowZD("l'+i.toString()+'","r'+i.toString()+'")><div class="v-align"><span>'+format(data['cost'])+'</br>'+format(data['price'])+'</span></div></li>' +
-						'	<li onclick=ShowZD("l'+i.toString()+'","r'+i.toString()+'")><div class="v-align"><span class="'+class1+'">'+format(data['income'])+'</br>'+data['income_pct']+'%</span></div></li>' +
-						'	<li onclick=ShowZD("l'+i.toString()+'","r'+i.toString()+'")><a class="'+class2+'">'+data['backcost_pct']+'%</a></li>' +
-						'	<li class="li-edit li-hide">' + 
-						// '		<span style="cursor: pointer;padding: 5px;">' +
-						// '			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16"><path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/><path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/></svg>' + 
-						// '		</span>' + 
-						'	    <span onclick=DelGP("'+data['id']+'") style="cursor: pointer;padding: 5px;">' + 
-						'	        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg></span>' +
-						'		</span>' + 
-						'	</li>' +
-						'</ul>' +
+						'<div class="my-ul">' + 
+						'    <ul class="tr clearfix">' +
+						'	    <li onclick=ShowZD("l'+i.toString()+'","r'+i.toString()+'")><div class="v-align"><span>'+data['name']+'</br><a class="code">'+data['code']+'</a></span></div></li>' +
+						'	    <li onclick=ShowZD("l'+i.toString()+'","r'+i.toString()+'")><div class="v-align"><span>'+data['count']+'</br>'+format((data['count']*data['price']).toFixed(0))+'</span></div></li>'+
+						'		<li onclick=ShowZD("l'+i.toString()+'","r'+i.toString()+'")><div class="v-align"><span>'+format(data['cost'])+'</br>'+format(data['price'])+'</span></div></li>' +
+						'		<li class="li-normal" onclick=ShowZD("l'+i.toString()+'","r'+i.toString()+'")><div class="v-align"><span class="'+class1+'">'+format(data['income'])+'</br>'+data['income_pct']+'%</span></div></li>' +
+						'		<li class="li-normal" onclick=ShowZD("l'+i.toString()+'","r'+i.toString()+'")><a class="'+class2+'">'+data['backcost_pct']+'%</a></li>' +
+						'		<li>' + 
+						'	 	   <span onclick=DelGP("'+data['id']+'") style="cursor: pointer;padding: 5px;">' + 
+						'	    	    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg></span>' +
+						'			</span>' + 
+						'		</li>' +
+						'		<li class="li-edit hide">' + 
+						'	 	   <span style="cursor: pointer;padding: 5px;">' + 
+						'	    	    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"/></svg>' +
+						'			</span>' + 
+						'		</li>' +
+						'	</ul>' +
+						'</div>' +
 						'<div style="display: none;" id="r'+i.toString()+'">' +
 						'	<ul class="tr2 clearfix">' +
 						'		<li><div class="v-align"><span>涨幅<br/>盈亏</span></div></li>' +
@@ -603,6 +622,10 @@
 						'</li>'
 			}
 			document.getElementById("tbody").innerHTML = html;
+			if ($(".li-normal").hasClass("hide")){
+				normalModel();
+			} 
+			moveleft();
 		}
 
 		// 删除缓存中指定股票
@@ -682,12 +705,58 @@
 			}
 		}
 
+		//侧滑显示删除按钮
+		function moveleft(){
+			var open = null;//open初始化，判断是否是已展开元素
+			var list = document.getElementsByClassName("my-ul");//list获取所有的待展开框
+			for(var i = 0;i < list.length; i++){
+				var x,y,X,Y,moveX,moveY;
+				list[i].addEventListener('touchstart',function(e){
+					/*获取最初的触摸位置*/
+					x = e.changedTouches[0].pageX;
+					y = e.changedTouches[0].pageY;
+					moveX = true;
+					moveY = true;
+				});
+
+				list[i].addEventListener('touchmove',function(e){
+					X = e.changedTouches[0].pageX;
+					Y = e.changedTouches[0].pageY;
+
+					//左右滑动
+					if(moveX && Math.abs(X - x) - Math.abs(Y -y) > 0 && $(".li-edit").hasClass("hide")){
+						e.stopPropagation();//阻止冒泡事件
+						//右滑收起删除按钮
+						if(X - x > 10){
+							e.preventDefault();
+							this.classList.remove("moveleft");
+						}
+						//左滑显示删除按钮
+						if(x - X > 10){
+							e.preventDefault();
+							this.classList.add("moveleft");
+							open = this;//存入展开的li元素
+						}
+						moveY = false;//左右滑动时不执行上下滑动时的事件
+					}
+
+					// 上下滑动
+					if(moveY && Math.abs(X - x) - Math.abs(Y - y) < 0){
+						moveX = false;//上下滑动时不执行左右滑动时的事件
+					}
+				});
+			}
+		}
+
 		// 页面加载时运行
 		window.onload = function(){
 			ls = localStorage.getItem('ls') // 判断缓存中是否存在数据
 			if (ls!=null&&ls!=""){
 				WriteTable();
 			}
+
+			//侧滑显示删除按钮
+			moveleft()
 		};
 
 		// 菜单
@@ -701,14 +770,33 @@
 		
 		// 编辑
 		$("#btn-edit").click(function(){
-			if ($(".li-edit").hasClass("li-hide")){
-				$(".li-edit").removeClass("li-hide")
-				$(".li-edit").addClass("li-show")
+			if ($(".li-edit").hasClass("hide")){
+				editModel()
 			} else{
-				$(".li-edit").removeClass("li-show")
-				$(".li-edit").addClass("li-hide")
+				normalModel()
 			}
 		});
+		function editModel(){
+			$("#btn-edit").html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">' +
+									'    <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>' +
+									'</svg>')
+			$("#btn-edit").css("color", "#dc3545")
+			$(".my-ul").css("width", "100%")
+			$(".my-ul").removeClass("moveleft")
+			$(".li-edit").removeClass("hide")
+			$(".li-normal").addClass("hide")
+		}
+		function normalModel(){
+			$(".li-edit").addClass("hide")
+			$(".li-normal").removeClass("hide")
+			$(".my-ul").css("width", "120%")
+			$(".my-ul").removeClass("moveleft")
+			$("#btn-edit").html('<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">' +
+								'	<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>' +
+								'	<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>' +
+								'</svg>')
+			$("#btn-edit").css("color", "#98989a")
+		}
 	</script>
 </html>
 <script src="./js/Sortable_v220713.js" ></script>
@@ -717,7 +805,8 @@
 	var st = new Sortable(el, {
 		animation: 150,
 		delay: 200,// 延时拖拽，按住200毫秒后才能拖拽
-		delayOnTouchOnly: true, // 延时只对移动端有效
+		// delayOnTouchOnly: true, // 延时只对移动端有效
+		handle: ".li-edit",
 		onEnd: function(evt){
 			ls = JSON.parse('['+localStorage.getItem('ls')+']')
 			// 为拖拽后位置改变的元素附上新的sort值
@@ -746,7 +835,10 @@
 				}
 			}
 			localStorage.setItem('ls', str);
-		}
+		},
+		// 开始拖拽的时候
+		onStart: function (/**Event*/evt) {
+		},
 	});
 </script>
 <!-- toastr -->
