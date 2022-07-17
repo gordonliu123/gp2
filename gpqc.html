@@ -783,7 +783,8 @@
 	var st = new Sortable(el, {
 		animation: 150,
 		delay: 200,// 延时拖拽，按住200毫秒后才能拖拽
-		delayOnTouchOnly: true, // 延时只对移动端有效
+		// delayOnTouchOnly: true, // 延时只对移动端有效
+		handle: ".li-edit",
 		onEnd: function(evt){
 			qc = JSON.parse('['+localStorage.getItem('qc')+']')
 			// 为拖拽后位置改变的元素附上新的sort值
