@@ -3,6 +3,9 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width, viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<!-- 改变Safari状态栏样式，可选default/black/black-translucent，需在上述全屏模式下才有效 -->
+		<meta name="apple-mobile-web-app-status-bar-style" content="white">
 
 		<link rel="icon" href="./img/icon32x32.png" sizes="32x32" type="image/png">
 		<link rel="icon" href="./img/icon16x16.png" sizes="16x16" type="image/png">
@@ -318,6 +321,8 @@
 				-webkit-transition:all 0.2s linear;transition:all 0.2s linear;
 			}
 			.moveleft{
+				-webkit-transition:all 0.2s linear;
+				transition:all 0.2s linear;
 				transform:translateX(-15%);
 				-webkit-transform:translateX(-15%);
 			}
